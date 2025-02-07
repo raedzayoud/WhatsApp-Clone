@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Register extends StatelessWidget {
-  const Register({super.key});
+class SplashView extends StatelessWidget {
+  const SplashView({super.key});
 
   @override
   Widget build(BuildContext context) {

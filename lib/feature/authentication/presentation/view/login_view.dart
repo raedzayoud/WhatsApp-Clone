@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:whatsappclone/constant.dart';
+import 'package:whatsappclone/core/router.dart';
 import 'package:whatsappclone/core/utlis/assets.dart';
 import 'package:whatsappclone/feature/authentication/presentation/view/widgets/custom_button.dart';
 import 'package:whatsappclone/feature/authentication/presentation/view/widgets/custom_password_forget.dart';
@@ -60,9 +62,14 @@ class Login extends StatelessWidget {
                 height: 5,
               ),
               Center(
-                  child: Text(
-                "Don't have an account? Sign up",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                  child: InkWell(
+                onTap: () {
+                  Get.toNamed(AppRouter.register);
+                },
+                child: Text(
+                  "Don't have an account? Sign up",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                ),
               ))
             ],
           ),
