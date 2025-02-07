@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:whatsappclone/constant.dart';
-import 'package:whatsappclone/core/router.dart';
+import 'package:whatsappclone/core/utlis/router.dart';
 import 'package:whatsappclone/core/utlis/assets.dart';
 import 'package:whatsappclone/feature/authentication/presentation/view/widgets/custom_button.dart';
+import 'package:whatsappclone/feature/authentication/presentation/view/widgets/custom_image.dart';
 import 'package:whatsappclone/feature/authentication/presentation/view/widgets/custom_password_forget.dart';
 import 'package:whatsappclone/feature/authentication/presentation/view/widgets/custom_text_field.dart';
 import 'package:whatsappclone/feature/authentication/presentation/view/widgets/custom_title.dart';
@@ -27,9 +28,9 @@ class Login extends StatelessWidget {
                 title: "Login",
                 subtitle: "Welcome back to the app",
               ),
-              SizedBox(
-                  height: 140,
-                  child: Center(child: Image.asset(AssetsImage.whatsapp))),
+              CustomImage(
+                url: AssetsImage.whatsapp,
+              ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.06),
               const Text(
                 "Email Address",

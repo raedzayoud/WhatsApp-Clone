@@ -1,4 +1,4 @@
 
 import 'package:flutter/material.dart';
 
-const KPrimayColor=Color(0xFF70DAB1);
+const KPrimayColor=Color.fromARGB(255, 60, 196, 141);

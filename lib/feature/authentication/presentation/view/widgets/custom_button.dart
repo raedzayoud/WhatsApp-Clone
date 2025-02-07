@@ -8,7 +8,7 @@ class CustomButton extends StatelessWidget {
   const CustomButton({
     super.key,
     required this.text,
-    this.onPressed,
+    required this.onPressed,
   });
 
   @override
