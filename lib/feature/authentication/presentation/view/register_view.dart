@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:whatsappclone/constant.dart';
+import 'package:whatsappclone/core/utlis/function/validator.dart';
 import 'package:whatsappclone/core/utlis/router.dart';
 import 'package:whatsappclone/core/utlis/assets.dart';
 import 'package:whatsappclone/feature/authentication/presentation/view/widgets/custom_button.dart';
@@ -39,6 +40,9 @@ class Register extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               CustomTextField(
+                validator: (val){
+                  return validateEmail(val);
+                },
                 controller: email,
                 hintText: "Enter your email",
                 suffixIcon: Icon(Icons.email),
@@ -50,6 +54,9 @@ class Register extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               CustomTextField(
+                validator: (val){
+                  return validateFullName(val);
+                },
                 controller: fullname,
                 hintText: "Enter your full name ",
                 suffixIcon: Icon(Icons.person),
@@ -61,6 +68,9 @@ class Register extends StatelessWidget {
               ),
               SizedBox(height: 10),
               CustomTextField(
+                validator: (val){
+                  return validatePassword(val);
+                },
                 controller: password,
                 hintText: "Enter your password",
                 suffixIcon: Icon(Icons.lock),

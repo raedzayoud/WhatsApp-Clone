@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:whatsappclone/constant.dart';
+import 'package:whatsappclone/core/utlis/function/validator.dart';
 import 'package:whatsappclone/core/utlis/router.dart';
 import 'package:whatsappclone/core/utlis/assets.dart';
 import 'package:whatsappclone/feature/authentication/presentation/view/widgets/custom_button.dart';
@@ -38,6 +38,9 @@ class Login extends StatelessWidget {
               ),
               SizedBox(height: 10),
               CustomTextField(
+                validator: (val){
+                  return validateEmail(val);
+                },
                 controller: email,
                 hintText: "Enter your email",
                 suffixIcon: Icon(Icons.email),
@@ -46,6 +49,9 @@ class Login extends StatelessWidget {
               CustomPasswordForget(),
               SizedBox(height: 10),
               CustomTextField(
+                validator: (val){
+                  return validatePassword(val);
+                },
                 controller: password,
                 hintText: "Enter your password",
                 suffixIcon: Icon(Icons.lock),

@@ -22,8 +22,8 @@ class SplashView extends StatelessWidget {
                 url: AssetsImage.welcome,
               ),
               Text(
-                "Welcome to the app",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                "Welcome to the whatsapp Clone ",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
               SizedBox(
                 height: 20,
