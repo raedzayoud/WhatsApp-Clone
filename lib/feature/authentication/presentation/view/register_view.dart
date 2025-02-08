@@ -9,6 +9,7 @@ import 'package:whatsappclone/feature/authentication/presentation/view/widgets/c
 import 'package:whatsappclone/feature/authentication/presentation/view/widgets/custom_password_forget.dart';
 import 'package:whatsappclone/feature/authentication/presentation/view/widgets/custom_text_field.dart';
 import 'package:whatsappclone/feature/authentication/presentation/view/widgets/custom_title.dart';
+import 'package:whatsappclone/feature/authentication/presentation/view/widgets/have_account.dart';
 
 class Register extends StatelessWidget {
   const Register({super.key});
@@ -83,16 +84,7 @@ class Register extends StatelessWidget {
               SizedBox(
                 height: 5,
               ),
-              Center(
-                  child: InkWell(
-                onTap: () {
-                  Get.back();
-                },
-                child: Text(
-                  "have an account?",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-                ),
-              ))
+              Have_Account()
             ],
           ),
         ),

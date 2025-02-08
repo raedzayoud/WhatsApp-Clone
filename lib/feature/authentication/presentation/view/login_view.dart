@@ -8,6 +8,7 @@ import 'package:whatsappclone/feature/authentication/presentation/view/widgets/c
 import 'package:whatsappclone/feature/authentication/presentation/view/widgets/custom_password_forget.dart';
 import 'package:whatsappclone/feature/authentication/presentation/view/widgets/custom_text_field.dart';
 import 'package:whatsappclone/feature/authentication/presentation/view/widgets/custom_title.dart';
+import 'package:whatsappclone/feature/authentication/presentation/view/widgets/signup.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});
@@ -24,6 +25,7 @@ class Login extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              //Header
               CustomTitle(
                 title: "Login",
                 subtitle: "Welcome back to the app",
@@ -32,6 +34,7 @@ class Login extends StatelessWidget {
                 url: AssetsImage.whatsapp,
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+              //Body
               const Text(
                 "Email Address",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -57,6 +60,7 @@ class Login extends StatelessWidget {
                 suffixIcon: Icon(Icons.lock),
               ),
               SizedBox(height: 30),
+              // Nav
               CustomButton(
                 text: "Login",
                 onPressed: () {},
@@ -68,16 +72,7 @@ class Login extends StatelessWidget {
               SizedBox(
                 height: 5,
               ),
-              Center(
-                  child: InkWell(
-                onTap: () {
-                  Get.toNamed(AppRouter.register);
-                },
-                child: Text(
-                  "Don't have an account? Sign up",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-                ),
-              ))
+              Signup()
             ],
           ),
         ),
