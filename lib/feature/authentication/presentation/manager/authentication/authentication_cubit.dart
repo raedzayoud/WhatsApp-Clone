@@ -46,4 +46,26 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     emit(AuthenticationInitial());
     Get.offAllNamed(AppRouter.login);
   }
+  
+  Future<void> forgetPassword(String email) async {
+    emit(AuthenticationLoading());
+    var response = await authenticationRepo.forgetPassword(email);
+    response.fold((failure) {
+      emit(AuthenticationFailure(errorMessage: failure.errorsMessage));
+      print(failure.errorsMessage);
+    }, (success) {
+      emit(AuthenticationSuccess());
+    });
+  }
+  
+  Future<void> signInWithGoogle() async {
+    //emit(AuthenticationLoading());
+    var response = await authenticationRepo.conncetWithGoole();
+    response.fold((failure) {
+      emit(AuthenticationFailure(errorMessage: failure.errorsMessage));
+      print(failure.errorsMessage);
+    }, (success) {
+      emit(AuthenticationSuccess());
+    });
+  }
 }

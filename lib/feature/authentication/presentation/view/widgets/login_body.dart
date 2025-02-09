@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:whatsappclone/core/utlis/router.dart';
 import 'package:whatsappclone/core/widget/custom_error.dart';
 import 'package:whatsappclone/core/widget/custom_loading.dart';
 import 'package:whatsappclone/feature/authentication/presentation/manager/authentication/authentication_cubit.dart';
@@ -30,9 +31,7 @@ class _LoginBodyState extends State<LoginBody> {
           print("Authentication Failure: ${state.errorMessage}");
         } else if (state is AuthenticationSuccess) {
           errorMessage = null;
-
-          Get.snackbar("Success", "Login successful");
-          print("Authentication Success");
+          Get.offAllNamed(AppRouter.home);
         }
       },
       builder: (context, state) {

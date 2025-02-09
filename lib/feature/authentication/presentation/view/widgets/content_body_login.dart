@@ -79,7 +79,10 @@ class content_body_login extends StatelessWidget {
               ),
               CustomButton(
                 text: "Continue with Google",
-                onPressed: () {},
+                onPressed: () {
+                  BlocProvider.of<AuthenticationCubit>(context)
+                      .signInWithGoogle();
+                },
               ),
               const SizedBox(
                 height: 5,
