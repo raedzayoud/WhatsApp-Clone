@@ -6,7 +6,7 @@ import 'package:whatsappclone/core/utlis/router.dart';
 import 'package:whatsappclone/feature/authentication/data/repos/authentication_repo_impl.dart';
 import 'package:whatsappclone/feature/authentication/presentation/manager/authentication/authentication_cubit.dart';
 
-void main()async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());

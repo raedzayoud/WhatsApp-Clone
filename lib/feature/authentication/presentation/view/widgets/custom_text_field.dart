@@ -18,7 +18,7 @@ class CustomTextField extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: TextFormField(
         validator: validator,
-        controller: TextEditingController(),
+        controller: controller,
         decoration: InputDecoration(
             focusedBorder: const OutlineInputBorder(
               borderRadius: const BorderRadius.all(Radius.circular(13)),

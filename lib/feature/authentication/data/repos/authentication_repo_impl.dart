@@ -1,7 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:whatsappclone/core/error/failure.dart';
 import 'package:whatsappclone/feature/authentication/data/repos/authentication_repo.dart';
+import 'package:whatsappclone/feature/authentication/presentation/manager/authentication/authentication_cubit.dart';
 
 class AuthenticationRepoImpl implements AuthenticationRepo {
   @override
@@ -19,7 +23,8 @@ class AuthenticationRepoImpl implements AuthenticationRepo {
   }
 
   @override
-  Future<void> signup(String email, String password, String fullName) async {
+  Future<Either<Failure, void>> signup(
+      String email, String password, String fullName) async {
     try {
       UserCredential userCredential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -35,9 +40,13 @@ class AuthenticationRepoImpl implements AuthenticationRepo {
         'fullName': fullName,
         'email': email,
       });
-      await userCredential.user?.sendEmailVerification();
-    } on FirebaseAuthException catch (e) {
-      print('Failed to sign up: $e');
+      //await userCredential.user?.sendEmailVerification();
+      return right(null);
+    } catch (e) {
+      if(e is DioException){
+        return left(ServeurFailure.fromDioError(e));
+      }
+      return left(ServeurFailure(errorsMessage: e.toString()));
     }
   }
 }

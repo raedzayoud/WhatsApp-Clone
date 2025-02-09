@@ -13,7 +13,7 @@ class Signup extends StatelessWidget {
     return Center(
         child: InkWell(
       onTap: () {
-        Get.toNamed(AppRouter.register);
+        Get.offAllNamed(AppRouter.register);
       },
       child: Text(
         "Don't have an account? Sign up",

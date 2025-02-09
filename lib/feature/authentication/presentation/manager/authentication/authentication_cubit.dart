@@ -2,14 +2,15 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:meta/meta.dart';
+import 'package:whatsappclone/core/utlis/router.dart';
 import 'package:whatsappclone/feature/authentication/data/repos/authentication_repo.dart';
-import 'package:whatsappclone/feature/authentication/presentation/view/register_view.dart';
 part 'authentication_state.dart';
 
 class AuthenticationCubit extends Cubit<AuthenticationState> {
   AuthenticationRepo authenticationRepo;
 
   AuthenticationCubit(this.authenticationRepo) : super(AuthenticationInitial());
+  
   Future<void> login(String email, String password) async {
     try {
       emit(AuthenticationLoading());
@@ -25,20 +26,24 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       } else {
         emit(AuthenticationFailure(errorMessage: "Failed to login"));
       }
-    }
+    } 
   }
 
   Future<void> register(String email, String password, String fullname) async {
-    try {
-      emit(AuthenticationLoading());
-      await authenticationRepo.signup(email, password, fullname);
+    emit(AuthenticationLoading());
+    var response = await authenticationRepo.signup(email, password, fullname);
+    response.fold((failure) {
+      emit(AuthenticationFailure(errorMessage: failure.errorsMessage));
+      print(failure.errorsMessage);
+    }, (success) {
       emit(AuthenticationSuccess());
-    } catch (e) {
-      emit(AuthenticationFailure(errorMessage: e.toString()));
+      //Get.offAllNamed(AppRouter.login);
+    });
     }
-  }
 
-  Future<void> signout(String email, String password, String fullname) async {
-    authenticationRepo.signout();
+  Future<void> signout() async {
+    await authenticationRepo.signout();
+    emit(AuthenticationInitial());
+    Get.offAllNamed(AppRouter.login);
   }
 }
