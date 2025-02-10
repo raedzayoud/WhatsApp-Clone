@@ -17,6 +17,7 @@ class AuthenticationRepoImpl implements AuthenticationRepo {
       email: email,
       password: password,
     );
+  
   }
 
   @override
@@ -59,38 +60,37 @@ class AuthenticationRepoImpl implements AuthenticationRepo {
 
   @override
   Future<Either<Failure, void>> conncetWithGoole() async {
-  try {
-    final GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email']);
-    final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+    try {
+      final GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email']);
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
 
-    if (googleUser == null) {
-      return left(ServeurFailure(errorsMessage: 'Google sign-in was canceled.'));
+      if (googleUser == null) {
+        return left(
+            ServeurFailure(errorsMessage: 'Google sign-in was canceled.'));
+      }
+
+      // Obtain authentication details
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+
+      // Create credentials
+      final OAuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      // Sign in to Firebase
+      await FirebaseAuth.instance.signInWithCredential(credential);
+      Get.offAllNamed(AppRouter.home);
+      return right(null);
+    } on FirebaseAuthException catch (e) {
+      return left(
+          ServeurFailure(errorsMessage: 'FirebaseAuth Error: ${e.message}'));
+    } on DioException catch (e) {
+      return left(ServeurFailure.fromDioError(e));
+    } catch (e) {
+      return left(ServeurFailure(errorsMessage: 'Unexpected Error: $e'));
     }
-
-    // Obtain authentication details
-    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-
-    // Create credentials
-    final OAuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-
-    // Sign in to Firebase
-    await FirebaseAuth.instance.signInWithCredential(credential);
-
-    // Navigate to home screen
-    Get.offAllNamed(AppRouter.home);
-    return right(null);
-  } on FirebaseAuthException catch (e) {
-    return left(ServeurFailure(errorsMessage: 'FirebaseAuth Error: ${e.message}'));
-  } on DioException catch (e) {
-    return left(ServeurFailure.fromDioError(e));
-  } catch (e) {
-    return left(ServeurFailure(errorsMessage: 'Unexpected Error: $e'));
   }
-}
-
 
   @override
   Future<Either<Failure, void>> forgetPassword(String email) async {

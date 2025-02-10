@@ -10,12 +10,13 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   AuthenticationRepo authenticationRepo;
 
   AuthenticationCubit(this.authenticationRepo) : super(AuthenticationInitial());
-  
+
   Future<void> login(String email, String password) async {
     try {
       emit(AuthenticationLoading());
       await authenticationRepo.login(email, password);
       emit(AuthenticationSuccess());
+      Get.offAllNamed(AppRouter.home);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         emit(AuthenticationFailure(
@@ -26,7 +27,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       } else {
         emit(AuthenticationFailure(errorMessage: "Failed to login"));
       }
-    } 
+    }
   }
 
   Future<void> register(String email, String password, String fullname) async {
@@ -39,14 +40,14 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       emit(AuthenticationSuccess());
       //Get.offAllNamed(AppRouter.login);
     });
-    }
+  }
 
   Future<void> signout() async {
     await authenticationRepo.signout();
     emit(AuthenticationInitial());
     Get.offAllNamed(AppRouter.login);
   }
-  
+
   Future<void> forgetPassword(String email) async {
     emit(AuthenticationLoading());
     var response = await authenticationRepo.forgetPassword(email);
@@ -57,7 +58,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       emit(AuthenticationSuccess());
     });
   }
-  
+
   Future<void> signInWithGoogle() async {
     //emit(AuthenticationLoading());
     var response = await authenticationRepo.conncetWithGoole();
