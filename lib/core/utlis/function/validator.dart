@@ -25,3 +25,11 @@ String? validateFullName(String? val) {
   }
   return null;
 }
+
+String? validateSearch(String? val) {
+  if (val == null || val.isEmpty) {
+    return 'Search cannot be empty';
+  }
+  return null;
+}
+
