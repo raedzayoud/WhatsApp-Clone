@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:whatsappclone/constant.dart';
 import 'package:whatsappclone/feature/search/presenetation/view/widegts/custom_text_filed_search.dart';
 
@@ -25,10 +26,20 @@ class CustomApparSearch extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10)
+        padding: EdgeInsets.symmetric(horizontal: 2)
             .copyWith(top: MediaQuery.of(context).size.height * 0.05),
         child: Row(
           children: [
+            IconButton(
+              padding: EdgeInsets.zero,
+              onPressed: () {
+                Get.back();
+              },
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              ),
+            ),
             CustomTextfiledSearch(
               controller: search,
               onPressed: onPressed,
