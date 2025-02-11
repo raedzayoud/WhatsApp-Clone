@@ -8,7 +8,12 @@ class SearchViewBody extends StatelessWidget {
   Widget build(BuildContext context) {
     TextEditingController search = TextEditingController();
     return Column(
-      children: [CustomApparSearch(search: search)],
+      children: [
+        CustomApparSearch(
+          search: search,
+          onPressed: () {},
+        )
+      ],
     );
   }
 }

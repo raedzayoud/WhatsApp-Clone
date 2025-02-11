@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:whatsappclone/constant.dart';
 import 'package:whatsappclone/feature/search/presenetation/view/widegts/custom_text_filed_search.dart';
@@ -8,9 +6,11 @@ class CustomApparSearch extends StatelessWidget {
   const CustomApparSearch({
     super.key,
     required this.search,
+    required this.onPressed,
   });
 
   final TextEditingController search;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class CustomApparSearch extends StatelessWidget {
           children: [
             CustomTextfiledSearch(
               controller: search,
-              onPressed: () {},
+              onPressed: onPressed,
             )
           ],
         ),
