@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:whatsappclone/core/utlis/router.dart';
 import 'package:whatsappclone/feature/home/presentation/view/widget/home_view_body.dart';
 
 class HomeView extends StatelessWidget {
@@ -7,7 +8,21 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: HomeViewBody(),
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: IconButton(onPressed: () {}, icon: Icon(Icons.chat)),
+            label: 'chat',
+          ),
+          BottomNavigationBarItem(
+            icon: IconButton(onPressed: () {
+
+            }, icon: Icon(Icons.person)),
+            label: 'Profile',
+          ),
+        ],
+      ),
+      body: HomeViewBody(),
     );
   }
 }

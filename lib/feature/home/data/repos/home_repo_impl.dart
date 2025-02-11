@@ -35,4 +35,45 @@ class HomeRepoImpl implements HomeRepo {
       });
     }
   }
+
+  Future<String?> getchatRoom(String receiverId) async {
+    final currentUser = _firebaseAuth.currentUser;
+    if (currentUser != null) {
+      final chatquery = await _firebaseFirestore
+          .collection('users')
+          .where('users', arrayContains: currentUser.uid)
+          .get();
+      final chats = chatquery.docs
+          .where((chat) => chat['users'].contains(receiverId))
+          .toList();
+
+      if (chats.isNotEmpty) {
+        return chats.first.id;
+      }
+      return null;
+    }
+  }
+
+  Future<String> createChatRoom(String receiverId) async {
+    final currentUser = _firebaseAuth.currentUser;
+
+    if (currentUser != null) {
+      final chatRoom = await _firebaseFirestore.collection("chats").add({
+        'users': [currentUser.uid, receiverId],
+        'lastname': '',
+        'timestamp': FieldValue.serverTimestamp(),
+      });
+      return chatRoom.id;
+    }
+
+    throw Exception("User not found");
+  }
+
+  Stream<QuerySnapshot> searchUsers(String query) {
+    return _firebaseFirestore
+        .collection("users")
+        .where('email', isGreaterThanOrEqualTo: query)
+        .where('email',isLessThanOrEqualTo: query + '\uf8ff')
+        .snapshots();
+  }
 }
