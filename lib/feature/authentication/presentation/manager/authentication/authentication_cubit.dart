@@ -25,7 +25,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
         emit(AuthenticationFailure(
             errorMessage: "Wrong password provided for that user."));
       } else {
-        emit(AuthenticationFailure(errorMessage: "Failed to login"));
+        emit(AuthenticationFailure(errorMessage: "You don t have account"));
       }
     }
   }

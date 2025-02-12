@@ -61,21 +61,13 @@ class HomeRepoImpl implements HomeRepo {
     if (currentUser != null) {
       final chatRoom = await _firebaseFirestore.collection("chats").add({
         'users': [currentUser.uid, receiverId],
-        'lastname': '',
+        'lastMessage': '',
         'timestamp': FieldValue.serverTimestamp(),
       });
       return chatRoom.id;
     }
 
     throw Exception("User not found");
-  }
-
-  Stream<QuerySnapshot> searchUsers(String query) {
-    return _firebaseFirestore
-        .collection("users")
-        .where('email', isGreaterThanOrEqualTo: query)
-        .where('email', isLessThanOrEqualTo: query + '\uf8ff')
-        .snapshots();
   }
 
   @override
@@ -86,5 +78,23 @@ class HomeRepoImpl implements HomeRepo {
   @override
   Future<void> signoutwithgoogle() async {
     await GoogleSignIn().disconnect();
+  }
+
+  Future<Map<String, dynamic>> fetchChatData(String chatId) async {
+    final chatDoc =
+        await _firebaseFirestore.collection('chats').doc(chatId).get();
+    final chatData = chatDoc.data();
+    final users = chatData!['users'] as List<String>;
+    final recevierId = users
+        .firstWhere((element) => element != _firebaseAuth.currentUser!.uid);
+    final userDoc =
+        await _firebaseFirestore.collection('users').doc(recevierId).get();
+    final userData = userDoc.data();
+    return {
+      'chatId': chatId,
+      'lastMessage': chatData['lastMessage'] ?? '',
+      'timestamp': chatData['timestamp']?.toDate() ?? DateTime.now(),
+      'userData': userData
+    };
   }
 }

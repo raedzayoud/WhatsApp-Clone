@@ -1,8 +1,9 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:whatsappclone/constant.dart';
 import 'package:whatsappclone/core/utlis/router.dart';
+import 'package:whatsappclone/feature/home/presentation/manager/home_cubit/home_cubit.dart';
 import 'package:whatsappclone/feature/home/presentation/view/widget/custom_icon_button.dart';
 
 class CustomApparHome extends StatelessWidget {
@@ -49,7 +50,11 @@ class CustomApparHome extends StatelessWidget {
                 Icons.logout,
                 color: Colors.white,
               ),
-              onPressed: () {},
+              onPressed: () {
+                BlocProvider.of<HomeCubit>(context).signout();
+                BlocProvider.of<HomeCubit>(context).signoutwithgoole();
+                Get.offAllNamed(AppRouter.login);
+              },
             ),
           ],
         ),

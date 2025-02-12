@@ -12,4 +12,7 @@ final class HomeFailure extends HomeState {
   HomeFailure(this.errorMessage);
 }
 
-final class HomeSuccess extends HomeState {}
+final class HomeSuccess extends HomeState {
+  //final Stream<QuerySnapshot<Object?>> snapshot;
+  HomeSuccess();
+}

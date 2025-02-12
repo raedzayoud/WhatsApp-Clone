@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:whatsappclone/constant.dart';
-import 'package:whatsappclone/feature/search/presenetation/view/widegts/custom_text_filed_search.dart';
+import 'package:whatsappclone/feature/search/presenetation/view/widgets/custom_text_filed_search.dart';
 
 class CustomApparSearch extends StatelessWidget {
   const CustomApparSearch({

@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 import 'package:whatsappclone/feature/home/data/repos/home_repo.dart';
 
@@ -14,5 +15,13 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> signoutwithgoole() async {
     await homeRepo.signoutwithgoogle();
+  }
+
+  Stream<QuerySnapshot<Object?>> getChats(String userID) {
+    return homeRepo.getChats(userID);
+  }
+
+  Future<Map<String, dynamic>> fetchChatData(String chatId) {
+    return homeRepo.fetchChatData(chatId);
   }
 }
