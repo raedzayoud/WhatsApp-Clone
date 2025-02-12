@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:whatsappclone/core/utlis/router.dart';
 import 'package:whatsappclone/feature/authentication/data/repos/authentication_repo_impl.dart';
 import 'package:whatsappclone/feature/authentication/presentation/manager/authentication/authentication_cubit.dart';
+import 'package:whatsappclone/feature/authentication/presentation/view/splash_view.dart';
+import 'package:whatsappclone/feature/home/presentation/view/home_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,13 +22,22 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-            create: (context) => AuthenticationCubit(AuthenticationRepoImpl())),
+            create: (context) => AuthenticationCubit(AuthenticationRepoImpl())
+              ..checkAuthentication()),
       ],
       child: GetMaterialApp(
-        theme: ThemeData(),
-        debugShowCheckedModeBanner: false,
-        getPages: AppRouter.getPages,
-      ),
+          initialRoute: '/',
+          theme: ThemeData(),
+          debugShowCheckedModeBanner: false,
+          getPages: AppRouter.getPages,
+          home: BlocBuilder<AuthenticationCubit, AuthenticationState>(
+              builder: (context, state) {
+            if (state is AuthenticationInitial) {
+              return const SplashView();
+            } else {
+              return const HomeView();
+            }
+          })),
     );
   }
 }

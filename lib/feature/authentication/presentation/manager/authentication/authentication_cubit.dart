@@ -69,4 +69,15 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
       emit(AuthenticationSuccess());
     });
   }
+
+  Future<void> checkAuthentication()async {
+    final user=FirebaseAuth.instance.currentUser;
+    if(user!=null){
+      emit(AuthenticationSuccess());
+    }
+    else{
+      emit(AuthenticationInitial());
+    }
+    
+  }
 }

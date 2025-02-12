@@ -15,7 +15,6 @@ class AppRouter {
   static const String search= "/search";
 
   static List<GetPage<dynamic>>? getPages = [
-    GetPage(name: "/", page: () => SplashView()),
     GetPage(name:login, page: () => Login()),
     GetPage(name: register, page: () => Register()),
     GetPage(name: forgerpassword, page: () => ForgetPasswordView()),
