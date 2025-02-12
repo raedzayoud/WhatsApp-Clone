@@ -21,11 +21,6 @@ class AuthenticationRepoImpl implements AuthenticationRepo {
   }
 
   @override
-  Future<void> signout() {
-    return FirebaseAuth.instance.signOut();
-  }
-
-  @override
   Future<Either<Failure, void>> signup(
       String email, String password, String fullName) async {
     try {
@@ -105,8 +100,5 @@ class AuthenticationRepoImpl implements AuthenticationRepo {
     }
   }
 
-  @override
-  Future<void> sigwithgoogle() async {
-    await GoogleSignIn().disconnect();
-  }
+  
 }

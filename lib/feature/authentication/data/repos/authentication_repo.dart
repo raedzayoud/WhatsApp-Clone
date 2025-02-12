@@ -6,6 +6,4 @@ abstract class AuthenticationRepo {
    Future<Either<Failure, void>>signup(String email, String password,String fullName);
    Future<Either<Failure, void>>forgetPassword(String email);
    Future<Either<Failure, void>>conncetWithGoole();
-   Future<void>signout();
-   Future<void>sigwithgoogle();
 }

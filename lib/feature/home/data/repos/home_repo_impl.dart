@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:whatsappclone/feature/home/data/repos/home_repo.dart';
 
 class HomeRepoImpl implements HomeRepo {
@@ -73,7 +74,17 @@ class HomeRepoImpl implements HomeRepo {
     return _firebaseFirestore
         .collection("users")
         .where('email', isGreaterThanOrEqualTo: query)
-        .where('email',isLessThanOrEqualTo: query + '\uf8ff')
+        .where('email', isLessThanOrEqualTo: query + '\uf8ff')
         .snapshots();
+  }
+
+  @override
+  Future<void> signout() async {
+    await _firebaseAuth.signOut();
+  }
+
+  @override
+  Future<void> signoutwithgoogle() async {
+    await GoogleSignIn().disconnect();
   }
 }

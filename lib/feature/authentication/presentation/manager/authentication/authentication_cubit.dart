@@ -42,12 +42,6 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
     });
   }
 
-  Future<void> signout() async {
-    await authenticationRepo.signout();
-    emit(AuthenticationInitial());
-    Get.offAllNamed(AppRouter.login);
-  }
-
   Future<void> forgetPassword(String email) async {
     emit(AuthenticationLoading());
     var response = await authenticationRepo.forgetPassword(email);

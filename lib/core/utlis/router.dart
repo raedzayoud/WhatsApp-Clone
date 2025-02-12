@@ -2,8 +2,6 @@ import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:whatsappclone/feature/authentication/presentation/view/forget_password_view.dart';
 import 'package:whatsappclone/feature/authentication/presentation/view/login_view.dart';
 import 'package:whatsappclone/feature/authentication/presentation/view/register_view.dart';
-import 'package:whatsappclone/feature/authentication/presentation/view/splash_view.dart';
-import 'package:whatsappclone/feature/authentication/presentation/view/widgets/forget_password_body.dart';
 import 'package:whatsappclone/feature/home/presentation/view/home_view.dart';
 import 'package:whatsappclone/feature/search/presenetation/view/search_view.dart';
 
