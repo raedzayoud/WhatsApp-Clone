@@ -17,19 +17,22 @@ class UserTitleSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        CircleAvatar(
-          radius: 30,
-          backgroundImage: AssetImage(AssetsImage.man),
-        ),
-        Expanded(
-          child: ListTile(
-            title: Text(name),
-            subtitle: Text(email),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Row(
+        children: [
+          CircleAvatar(
+            radius: 30,
+            backgroundImage: AssetImage(AssetsImage.man),
           ),
-        ),
-      ],
+          Expanded(
+            child: ListTile(
+              title: Text(name),
+              subtitle: Text(email),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

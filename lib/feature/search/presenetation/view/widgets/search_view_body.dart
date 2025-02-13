@@ -19,11 +19,15 @@ class _SearchViewBodyState extends State<SearchViewBody> {
   @override
   void initState() {
     search = TextEditingController();
-    // this is used for real time
-    search.addListener((){
-       BlocProvider.of<SearchCubit>(context).updateQuery(search.text);
-    });
+    ListinnerToUpdate();
     super.initState();
+  }
+
+  void ListinnerToUpdate() {
+    // this is used for real time
+    search.addListener(() {
+      BlocProvider.of<SearchCubit>(context).updateQuery(search.text);
+    });
   }
 
   @override
@@ -32,9 +36,7 @@ class _SearchViewBodyState extends State<SearchViewBody> {
       children: [
         CustomApparSearch(
           search: search,
-          onPressed: () {
-            //BlocProvider.of<SearchCubit>(context).updateQuery(search.text);
-          },
+          onPressed: () {},
         ),
         Expanded(
           child: BlocBuilder<SearchCubit, String>(builder: (context, query) {
