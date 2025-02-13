@@ -5,12 +5,12 @@ import 'package:whatsappclone/feature/search/data/repos/search_repo.dart';
 
 part 'search_state.dart';
 
-class SearchCubit extends Cubit<SearchState> {
+class SearchCubit extends Cubit<String> {
   SearchRepo searchRepo;
-  SearchCubit(this.searchRepo) : super(SearchInitial());
+  SearchCubit(this.searchRepo) : super('');
 
   void updateQuery(String query) {
-    emit(query as SearchState);
+    emit(query);
   }
 
   Stream<QuerySnapshot> searchUsers(String query) {

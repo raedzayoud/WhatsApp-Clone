@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:whatsappclone/core/utlis/function/validator.dart';
 
@@ -18,11 +16,17 @@ class CustomTextfiledSearch extends StatelessWidget {
           return validateSearch(val);
         },
         controller: controller,
+        style: TextStyle(color: Colors.white),
         decoration: InputDecoration(
             enabledBorder: const OutlineInputBorder(
               borderRadius: const BorderRadius.all(Radius.circular(13)),
               borderSide: BorderSide(
                   color: Colors.white), // Border color when not focused
+            ),
+            focusedBorder: const OutlineInputBorder(
+              borderRadius: const BorderRadius.all(Radius.circular(13)),
+              borderSide:
+                  BorderSide(color: Colors.white), // Border color when focused
             ),
             suffixIcon: IconButton(
               icon: Icon(
