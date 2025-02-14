@@ -10,6 +10,7 @@ import 'package:whatsappclone/feature/authentication/data/repos/authentication_r
 import 'package:whatsappclone/feature/authentication/presentation/manager/authentication/authentication_cubit.dart';
 
 class AuthenticationRepoImpl implements AuthenticationRepo {
+  
   @override
   Future<void> login(String email, String password) async {
     UserCredential userCredential =

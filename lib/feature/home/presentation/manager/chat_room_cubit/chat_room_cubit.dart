@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
 import 'package:whatsappclone/feature/home/data/repos/chat/chat_repo.dart';
 
@@ -9,16 +10,24 @@ class ChatRoomCubit extends Cubit<ChatRoomState> {
   ChatRoomCubit(this.chatRepo) : super(ChatRoomInitial());
 
   Future<String?> getchatRoom(String receiverId) async {
-    final chatRoom = await chatRepo.getchatRoom(receiverId);
-    if (chatRoom != null) {
-      emit(ChatRoomSuccess());
-    }
-    return chatRoom;
+    return await chatRepo.getchatRoom(receiverId);
   }
 
   Future<String?> createChatRoom(String receiverId) async {
-    final chatRoom = await chatRepo.createChatRoom(receiverId);
-    emit(ChatRoomSuccess());
-    return chatRoom;
+    return await chatRepo.createChatRoom(receiverId);
+  }
+
+  Future<void> FetchReviverData(String receiverId) async {
+    try {
+      emit(ChatRoomLoading());
+      var result = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(receiverId)
+          .get();
+      final receverData = result.data() as Map<String, dynamic>;
+      emit(ChatRoomSuccess(receverData));
+    } catch (e) {
+      emit(ChatRoomFailure(e.toString()));
+    }
   }
 }
