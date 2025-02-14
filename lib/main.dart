@@ -5,7 +5,9 @@ import 'package:get/get.dart';
 import 'package:whatsappclone/core/utlis/router.dart';
 import 'package:whatsappclone/feature/authentication/data/repos/authentication_repo_impl.dart';
 import 'package:whatsappclone/feature/authentication/presentation/manager/authentication/authentication_cubit.dart';
-import 'package:whatsappclone/feature/home/data/repos/home_repo_impl.dart';
+import 'package:whatsappclone/feature/home/data/repos/chat/chat_repo_impl.dart';
+import 'package:whatsappclone/feature/home/data/repos/home/home_repo_impl.dart';
+import 'package:whatsappclone/feature/home/presentation/manager/chat_room_cubit/chat_room_cubit.dart';
 import 'package:whatsappclone/feature/home/presentation/manager/home_cubit/home_cubit.dart';
 import 'package:whatsappclone/feature/home/presentation/view/home_view.dart';
 import 'package:whatsappclone/feature/splash/presentation/view/splash_view.dart';
@@ -27,6 +29,7 @@ class MyApp extends StatelessWidget {
             create: (context) => AuthenticationCubit(AuthenticationRepoImpl())
               ..checkAuthentication()),
         BlocProvider(create: (context)=>HomeCubit(HomeRepoImpl())),
+        BlocProvider(create: (context)=>ChatRoomCubit(ChatRepoImpl())),
       ],
       child: GetMaterialApp(
           initialRoute: '/',

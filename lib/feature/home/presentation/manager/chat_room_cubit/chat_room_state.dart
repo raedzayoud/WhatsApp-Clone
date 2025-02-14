@@ -4,3 +4,4 @@ part of 'chat_room_cubit.dart';
 sealed class ChatRoomState {}
 
 final class ChatRoomInitial extends ChatRoomState {}
+final class ChatRoomSuccess extends ChatRoomState {}
