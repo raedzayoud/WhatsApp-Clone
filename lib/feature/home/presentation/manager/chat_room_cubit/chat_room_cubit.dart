@@ -30,4 +30,9 @@ class ChatRoomCubit extends Cubit<ChatRoomState> {
       emit(ChatRoomFailure(e.toString()));
     }
   }
+
+  Future<void> sendMessage(
+      String chatId, String message, String receiverId) async {
+    await chatRepo.sendMessage(chatId, message, receiverId);
+  }
 }

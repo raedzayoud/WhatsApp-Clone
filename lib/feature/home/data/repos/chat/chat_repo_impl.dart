@@ -24,6 +24,7 @@ class ChatRepoImpl implements ChatRepo {
       return null;
     }
   }
+
   @override
   Future<String> createChatRoom(String receiverId) async {
     final currentUser = _firebaseAuth.currentUser;
@@ -38,10 +39,27 @@ class ChatRepoImpl implements ChatRepo {
     }
     throw Exception("User not found");
   }
-   
-  
 
-
-
-
+  @override
+  Future<void> sendMessage(
+      String chatId, String message, String receiverId) async {
+    final currentUser = _firebaseAuth.currentUser;
+    if (currentUser != null) {
+      await _firebaseFirestore
+          .collection('chats')
+          .doc(chatId)
+          .collection('messages')
+          .add({
+        'message': message,
+        'senderId': currentUser.uid,
+        'receiverId': receiverId,
+        'timestamp': FieldValue.serverTimestamp()
+      });
+      await _firebaseFirestore.collection('chats').doc(chatId).set({
+        'users': [currentUser.uid, receiverId],
+        'lastMessage': message,
+        'timestamp': FieldValue.serverTimestamp(),
+      });
+    }
+  }
 }

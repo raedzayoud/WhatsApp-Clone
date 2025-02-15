@@ -13,30 +13,7 @@ class HomeRepoImpl implements HomeRepo {
         .where('users', arrayContains: userId)
         .snapshots();
   }
-
-  @override
-  Future<void> sendMessage(
-      String chatId, String message, String receiverId) async {
-    final currentUser = _firebaseAuth.currentUser;
-    if (currentUser != null) {
-      await _firebaseFirestore
-          .collection('chats')
-          .doc(chatId)
-          .collection('messages')
-          .add({
-        'message': message,
-        'senderId': currentUser.uid,
-        'receiverId': receiverId,
-        'timestamp': FieldValue.serverTimestamp()
-      });
-      await _firebaseFirestore.collection('chats').doc(chatId).set({
-        'users': [currentUser.uid, receiverId],
-        'lastMessage': message,
-        'timestamp': FieldValue.serverTimestamp(),
-      });
-    }
-  }
-
+  
   @override
   Future<void> signout() async {
     await _firebaseAuth.signOut();
