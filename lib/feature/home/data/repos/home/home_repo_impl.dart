@@ -13,7 +13,7 @@ class HomeRepoImpl implements HomeRepo {
         .where('users', arrayContains: userId)
         .snapshots();
   }
-  
+
   @override
   Future<void> signout() async {
     await _firebaseAuth.signOut();
@@ -21,14 +21,18 @@ class HomeRepoImpl implements HomeRepo {
 
   @override
   Future<void> signoutwithgoogle() async {
-    await GoogleSignIn().disconnect();
+    try {
+      await GoogleSignIn().disconnect();
+    } on Exception catch (e) {
+      // TODO
+    }
   }
 
   Future<Map<String, dynamic>> fetchChatData(String chatId) async {
     final chatDoc =
         await _firebaseFirestore.collection('chats').doc(chatId).get();
     final chatData = chatDoc.data();
-    final users = chatData!['users'] as List<String>;
+    final users = chatData!['users'] as List<dynamic>;
     final recevierId = users
         .firstWhere((element) => element != _firebaseAuth.currentUser!.uid);
     final userDoc =

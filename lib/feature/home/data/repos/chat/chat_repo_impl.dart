@@ -11,7 +11,7 @@ class ChatRepoImpl implements ChatRepo {
     final currentUser = _firebaseAuth.currentUser;
     if (currentUser != null) {
       final chatquery = await _firebaseFirestore
-          .collection('users')
+          .collection('chats')
           .where('users', arrayContains: currentUser.uid)
           .get();
       final chats = chatquery.docs

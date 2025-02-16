@@ -41,12 +41,13 @@ class _ChatScreenViewState extends State<ChatScreenView> {
                   receiverData: state.receiverData,
                 ),
                 Expanded(
-                    child: chatId != null && chatId!.isNotEmpty
-                        ? MessageStreem(chatId: chatId,)
+                    child: chatId!=null && chatId.isNotEmpty
+                        ? MessageStreem(
+                            chatId: chatId,
+                          )
                         : Center(
                             child: Text("No Message Yet"),
                           )),
-                Spacer(),
                 CustomSendMessage(
                   chatId: chatId,
                   controller: _textcontroller,

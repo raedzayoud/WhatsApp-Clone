@@ -14,7 +14,11 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<void> signoutwithgoole() async {
-    await homeRepo.signoutwithgoogle();
+    try {
+      await homeRepo.signoutwithgoogle();
+    } on Exception catch (e) {
+      // TODO
+    }
   }
 
   Stream<QuerySnapshot<Object?>> getChats(String userID) {
@@ -24,5 +28,4 @@ class HomeCubit extends Cubit<HomeState> {
   Future<Map<String, dynamic>> fetchChatData(String chatId) {
     return homeRepo.fetchChatData(chatId);
   }
-
 }

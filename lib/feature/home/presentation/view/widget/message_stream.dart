@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -23,26 +22,24 @@ class MessageStreem extends StatelessWidget {
             return CustomLoading();
           }
           final messages = snapshot.data!.docs;
-          List<MessageBubble> MessageWidgets= [];
-          for (var message in messages) {
-            final messageData = message.data() as Map<String, dynamic>;
-            final messageText = messageData['message'];
-            final messageSender = messageData['senderId'];
-            final Timestamp =
-                messageData['timestamp'] ?? FieldValue.serverTimestamp();
 
-            final currentUser = FirebaseAuth.instance.currentUser!.uid;
-            MessageBubble MessageWidget = MessageBubble(
-              isMe: currentUser == messageSender,
-              sender: messageSender,
-              text: messageText,
-              timestamp: Timestamp,
-            );
-            MessageWidgets.add(MessageWidget);
-          }
-          return ListView(
-            reverse: true,
-            children: MessageWidgets,
+          return ListView.builder(
+            reverse: true, // Newest messages at the bottom
+            itemCount: messages.length,
+            itemBuilder: (context, index) {
+              final messageData = messages[index].data() as Map<String, dynamic>;
+              final messageText = messageData['message'];
+              final messageSender = messageData['senderId'];
+              final timestamp = messageData['timestamp'] ?? FieldValue.serverTimestamp();
+
+              final currentUser = FirebaseAuth.instance.currentUser!.uid;
+              return MessageBubble(
+                isMe: currentUser == messageSender,
+                sender: messageSender,
+                text: messageText,
+                timestamp: timestamp,
+              );
+            },
           );
         });
   }

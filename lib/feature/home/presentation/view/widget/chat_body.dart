@@ -6,7 +6,6 @@ import 'package:whatsappclone/core/widget/custom_error.dart';
 import 'package:whatsappclone/core/widget/custom_loading.dart';
 import 'package:whatsappclone/feature/home/presentation/manager/home_cubit/home_cubit.dart';
 import 'package:whatsappclone/feature/home/presentation/view/widget/chat_title.dart';
-
 class ChatBody extends StatelessWidget {
   const ChatBody({super.key});
 
@@ -21,34 +20,55 @@ class ChatBody extends StatelessWidget {
         } else if (snapshot.hasError) {
           return CustomError(errorMessage: snapshot.error.toString());
         } else if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-          return Center(child: Text('No chats available',style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.bold
-          ),));
+          return const Center(
+            child: Text(
+              'No chats available',
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+            ),
+          );
         } else {
           final chats = snapshot.data!.docs;
-          return FutureBuilder(
-              future: Future.wait(chats.map((chatdoc) =>
-                  BlocProvider.of<HomeCubit>(context)
-                      .fetchChatData(chatdoc.id))),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
+
+          return Expanded(
+            child: FutureBuilder<List<Map<String, dynamic>>>(
+              future: Future.wait(
+                chats.map(
+                  (chatDoc) => BlocProvider.of<HomeCubit>(context)
+                      .fetchChatData(chatDoc.id),
+                ).toList(),
+              ),
+              builder: (context, futureSnapshot) {
+                if (futureSnapshot.connectionState == ConnectionState.waiting) {
                   return CustomLoading();
-                }
-                final chatDataList =
-                    snapshot.data as List<Map<String, dynamic>>;
-                return ListView.builder(
+                } else if (futureSnapshot.hasError) {
+                  return CustomError(
+                      errorMessage: futureSnapshot.error.toString());
+                } else if (!futureSnapshot.hasData ||
+                    futureSnapshot.data!.isEmpty) {
+                  return const Center(
+                    child: Text(
+                      'No chat data available',
+                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                    ),
+                  );
+                } else {
+                  final chatDataList = futureSnapshot.data!;
+                  return ListView.builder(
                     itemCount: chatDataList.length,
                     itemBuilder: (context, index) {
                       final chatData = chatDataList[index];
                       return chatTitle(
                         chatId: chatData['chatId'],
                         lastMessage: chatData['lastMessage'],
-                        receiverData: chatData['timsstamp'],
-                        timestamp: chatData['userData'],
+                        receiverData: chatData['userData'],
+                        timestamp: chatData['timestamp'],
                       );
-                    });
-              });
+                    },
+                  );
+                }
+              },
+            ),
+          );
         }
       },
     );

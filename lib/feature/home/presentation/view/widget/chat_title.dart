@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:whatsappclone/core/utlis/assets.dart';
+import 'package:whatsappclone/feature/home/presentation/view/chat_screen_view.dart';
 
 class chatTitle extends StatelessWidget {
   final String chatId;
@@ -17,21 +19,28 @@ class chatTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return lastMessage != ""
-        ? Row(
-            children: [
-              CircleAvatar(
-                radius: 30,
-                backgroundImage: AssetImage(AssetsImage.man),
-              ),
-              Expanded(
-                child: ListTile(
-                  title: Text(receiverData['name']),
-                  subtitle: Text(lastMessage),
-                  trailing: Text('${timestamp.hour}:${timestamp.minute}'),
+        ? InkWell(
+          onTap: (){
+            Get.to(
+              ()=>ChatScreenView(chatId: chatId, recevierId: receiverData['uid'])
+            );
+          },
+          child: Row(
+              children: [
+                CircleAvatar(
+                  radius: 30,
+                  backgroundImage: AssetImage(AssetsImage.man),
                 ),
-              ),
-            ],
-          )
+                Expanded(
+                  child: ListTile(
+                    title: Text(receiverData['fullName']),
+                    subtitle: Text(lastMessage),
+                    trailing: Text('${timestamp.hour}:${timestamp.minute}'),
+                  ),
+                ),
+              ],
+            ),
+        )
         : Container();
   }
 }
