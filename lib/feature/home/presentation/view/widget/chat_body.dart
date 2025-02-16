@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:whatsappclone/core/utlis/assets.dart';
 import 'package:whatsappclone/core/widget/custom_error.dart';
 import 'package:whatsappclone/core/widget/custom_loading.dart';
 import 'package:whatsappclone/feature/home/presentation/manager/home_cubit/home_cubit.dart';

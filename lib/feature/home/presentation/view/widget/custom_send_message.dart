@@ -1,6 +1,8 @@
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:whatsappclone/core/widget/custom_loading.dart';
 import 'package:whatsappclone/feature/home/presentation/manager/chat_room_cubit/chat_room_cubit.dart';
 
 class CustomSendMessage extends StatelessWidget {
@@ -40,6 +42,7 @@ class CustomSendMessage extends StatelessWidget {
                     if (chatId != null) {
                       BlocProvider.of<ChatRoomCubit>(context)
                           .sendMessage(chatId, controller.text, receiverId!);
+                      controller.clear();
                     }
                   }
                 },

@@ -35,4 +35,8 @@ class ChatRoomCubit extends Cubit<ChatRoomState> {
       String chatId, String message, String receiverId) async {
     await chatRepo.sendMessage(chatId, message, receiverId);
   }
+
+  Stream<Object?>? FetchMessageData(String chatId) {
+    return chatRepo.FetchMessageData(chatId);
+  }
 }

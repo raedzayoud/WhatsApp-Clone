@@ -62,4 +62,14 @@ class ChatRepoImpl implements ChatRepo {
       });
     }
   }
+
+  @override
+  Stream<Object?>? FetchMessageData(String chatId) {
+    return FirebaseFirestore.instance
+        .collection('chats')
+        .doc(chatId)
+        .collection('messages')
+        .orderBy('timestamp', descending: true)
+        .snapshots();
+  }
 }

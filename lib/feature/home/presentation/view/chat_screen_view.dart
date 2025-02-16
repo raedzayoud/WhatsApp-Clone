@@ -5,6 +5,7 @@ import 'package:whatsappclone/core/widget/custom_loading.dart';
 import 'package:whatsappclone/feature/home/presentation/manager/chat_room_cubit/chat_room_cubit.dart';
 import 'package:whatsappclone/feature/home/presentation/view/widget/custom_appar_chat_screen.dart';
 import 'package:whatsappclone/feature/home/presentation/view/widget/custom_send_message.dart';
+import 'package:whatsappclone/feature/home/presentation/view/widget/message_stream.dart';
 
 class ChatScreenView extends StatefulWidget {
   final String? chatId;
@@ -41,7 +42,7 @@ class _ChatScreenViewState extends State<ChatScreenView> {
                 ),
                 Expanded(
                     child: chatId != null && chatId!.isNotEmpty
-                        ? Container()
+                        ? MessageStreem(chatId: chatId,)
                         : Center(
                             child: Text("No Message Yet"),
                           )),
