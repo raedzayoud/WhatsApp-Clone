@@ -33,11 +33,14 @@ class MessageStreem extends StatelessWidget {
               final timestamp = messageData['timestamp'] ?? FieldValue.serverTimestamp();
 
               final currentUser = FirebaseAuth.instance.currentUser!.uid;
-              return MessageBubble(
-                isMe: currentUser == messageSender,
-                sender: messageSender,
-                text: messageText,
-                timestamp: timestamp,
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: MessageBubble(
+                  isMe: currentUser == messageSender,
+                  sender: messageSender,
+                  text: messageText,
+                  timestamp: timestamp,
+                ),
               );
             },
           );
