@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:whatsappclone/core/utlis/router.dart';
 import 'package:whatsappclone/feature/authentication/data/repos/authentication_repo_impl.dart';
 import 'package:whatsappclone/feature/authentication/presentation/manager/authentication/authentication_cubit.dart';
+import 'package:whatsappclone/feature/authentication/presentation/view/login_view.dart';
 import 'package:whatsappclone/feature/home/data/repos/chat/chat_repo_impl.dart';
 import 'package:whatsappclone/feature/home/data/repos/home/home_repo_impl.dart';
 import 'package:whatsappclone/feature/home/presentation/manager/chat_room_cubit/chat_room_cubit.dart';
@@ -40,8 +41,11 @@ class MyApp extends StatelessWidget {
               builder: (context, state) {
             if (state is AuthenticationInitial) {
               return const SplashView();
-            } else {
+            } else if (state is AuthenticationSuccess) {
               return const HomeView();
+            }
+            else{
+              return const Login();
             }
           })),
     );

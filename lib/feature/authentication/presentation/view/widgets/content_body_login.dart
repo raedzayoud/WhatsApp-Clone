@@ -10,6 +10,7 @@ import 'package:whatsappclone/feature/authentication/presentation/view/widgets/s
 
 import 'package:whatsappclone/core/utlis/function/validator.dart';
 import 'package:whatsappclone/core/utlis/assets.dart';
+
 class content_body_login extends StatelessWidget {
   const content_body_login({
     super.key,
@@ -80,8 +81,12 @@ class content_body_login extends StatelessWidget {
               CustomButton(
                 text: "Continue with Google",
                 onPressed: () {
-                  BlocProvider.of<AuthenticationCubit>(context)
-                      .signInWithGoogle();
+                  try {
+                    BlocProvider.of<AuthenticationCubit>(context)
+                        .signInWithGoogle();
+                  } on Exception catch (e) {
+                    // TODO
+                  }
                 },
               ),
               const SizedBox(
